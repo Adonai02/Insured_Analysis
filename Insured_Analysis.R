@@ -1,9 +1,12 @@
-data <-read.csv("insurance.csv")
+data <-read.csv("/home/abel/insurance.csv")
 #--------------------------------PRIMER INCISO----------------------------------
 columnas_hist <- names(data)
-for (index in c(1:length(columnas_hist)) ) {
-  hist(data[index])
+
+for (column in columnas_hist) {
+  hist(data[,column], col="#198CE7", xlab=column,main=paste0("Histogram of ",column), probability = TRUE)
+  
 }
+
 #-------------------------------SEGUNDO INCISO ---------------------------------
 columnas <- c("Insured", "Claims", "Payment")
 array1 <-c()

@@ -11,14 +11,30 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Insured_Analysis
+# Insured Analysis
 
 <!-- badges: start -->
 <!-- badges: end -->
 
 The goal of Insured_Analysis is to ...
 
+***
+###### Bussines context
+
+*  The payment variable is a fundamental variable because the committee is interested in knowing if 
+this variable is a consequence of the number of claims and the number of years on the road.
+
+* The committee want to find the reasons for which the payment increase or decrease.Therefore is necessary 
+check if that is a consequence of the variables like location, distance,among others.
+
+* The committee want to decide whether it should charge especial fees depends of factors like location,
+insured amount, kilometers, bonus, etc.
+
+
+***
+
 <!--What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:-->
+
 
 ```{r include=FALSE}
 data <-read.csv("/home/abel/insurance.csv")
@@ -27,9 +43,106 @@ data <-read.csv("/home/abel/insurance.csv")
 <!--You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.-->
 
 <!--You can also embed plots, for example:-->
-
-```{r pressure, echo = FALSE}
+We look at the dataset and the variables 
+```{r, echo = FALSE}
 head(data)
 ```
 
+
+The kilometers variable describes the category of the number of kilometers driven per insured. 
+
+1. <1,000 km. 
+2. 1,000 -15,000 km. 
+3. 15,000 - 20,000 km. 
+4. 20,000 - 25,000 km. 
+5. 25,000 km. 
+
+The zone variable describes the municipality to which the insured belongs. 
+
+1. Monterrey. 
+2. San Pedro. 
+3. San Nicolas. 
+4. Escobedo. 
+5. Guadalupe.
+6. Garcia. 
+7. Others. 
+
+Variable Bonus: Number of years since the insured filed a claim +1
+
+Variable Make: Model of the insured car 1-8 represents a certain model and 9 represents the rest. 
+
+Insured variable: Number of insured per policy year.
+
+Claims variable: Number of claims made by the lot or insured.
+
 <!--In that case, don't forget to commit and push the resulting figure files, so they display on GitHub.-->
+First We will observe the important variables according to the committee, where the *payment* and the *claims* variables, are concentrated, for the most part in the first intervals and for its part the variables *Zone* and  *Kilometers* shape, practically, a uniform distribution. 
+```{r, echo = FALSE}
+columnas_hist <- c("Payment", "Claims", "Kilometres", "Zone")
+
+for (column in columnas_hist) {
+  hist(data[,column], col="#198CE7", xlab=column,main=paste0("Histogram of ",column), probability = TRUE)
+  
+}
+
+```
+
+
+Now, We are going to see the relation between the dependend variable *Payment* and some other variables that We belive are important like *Kilometres*, *Zone* and *Make*.
+
+We see that there are many payments between the interval <1,000 Kilometres corresponding to the First Category but
+there are even more in the second category 1,000 - 15,000.
+```{r, echo=FALSE}
+columnas <- c("Payment")
+array1 <-c()
+for (j in columnas ) {
+  for (i in c(1:5)) {
+    subdata <- subset(data, Kilometres == i, select = c(paste(j)))
+    array1[i] <- sum(subdata)
+  }
+  barplot(array1, names.arg = c(1:5) ,xlab = "Kilometros", ylab=paste("Suma de ",j,sep = ""), 
+          col=c("#39F9A3", "#32BCDB", "#38B9FF", "#8B1CFF", "#DEA73E"))
+
+}
+```
+
+```{r echo=FALSE}
+columnas <- c("Payment")
+array3 <-c()
+for (j in columnas ) {
+  for (i in c(1:9)) {
+    subdata <- subset(data, Make == i, select = c(paste(j)))
+    array3[i] <- sum(subdata)
+  }
+  barplot(array3,names.arg = c(1:9), xlab = "Modulo", ylab=paste("Suma de ",j,sep = ""), col=rainbow(25) )
+}  
+
+
+```
+
+
+
+```{r echo=FALSE}
+array2 <-c()
+for (j in columnas ) {
+  for (i in c(1:7)) {
+    subdata <- subset(data, Zone == i, select = c(paste(j)))
+    array2[i] <- sum(subdata)
+  }
+  barplot(array2, names.arg = c(1:7) ,xlab = "Municipio", ylab=paste("Suma de ",j,sep = ""),col=topo.colors(12))
+}  
+
+
+
+
+
+```
+
+We can read these three histograms as a whole, the first histogram of *Sum of payments* vs *Kilometres* can tell us
+that in the interval of 1,000 Km to 15,000 Km there will be the maximum of payments.
+
+The second hostogram *Sum Payments* vs *Model* can tell us that our data about the first eight models does not important because in the model nine (others models) there are very much payments, so, we can propose, to expand the models that are observed.
+
+In the last one histogram *Sum of Paymants* vs *Zone*, we can recognize easily that in the Zone number 4 (Escobedo)
+there are many payments, so, these is important if the committee want to make decisions about it that benefit them.
+
