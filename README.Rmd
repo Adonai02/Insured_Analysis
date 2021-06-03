@@ -90,8 +90,11 @@ for (column in columnas_hist) {
 
 Now, We are going to see the relation between the dependend variable *Payment* and some other variables that We belive are important like *Kilometres*, *Zone* and *Make*.
 
+
 We see that there are many payments between the interval <1,000 Kilometres corresponding to the First Category but
 there are even more in the second category 1,000 - 15,000.
+
+
 ```{r, echo=FALSE}
 columnas <- c("Payment")
 array1 <-c()
@@ -145,4 +148,33 @@ The second hostogram *Sum Payments* vs *Model* can tell us that our data about t
 
 In the last one histogram *Sum of Paymants* vs *Zone*, we can recognize easily that in the Zone number 4 (Escobedo)
 there are many payments, so, these is important if the committee want to make decisions about it that benefit them.
+
+
+* We have to find the correlation for each variable to know wich variable have better relation with the variable
+*Payments*.
+
+```{r echo=FALSE}
+library(corrplot)
+correlacion<-round(cor(data),1) 
+corrplot::corrplot(correlacion, method ="number")
+```
+
+
+We can observe the variable with more relation with *Payments* are *Insured* and *Claims* with that in mind
+We will make a scatterplots.
+
+```{r echo=FALSE}
+plot(data$Claims, data$Payment, xlab = "Claims", ylab = "Payment", main = "Scatter of Payment vs Claims",
+     col = "blue")
+
+```
+
+
+
+```{r echo=FALSE}
+
+plot(data$Insured, data$Payment, xlab = "Insured", ylab = "Payments", main = "Scatter of Payment vs Insured",
+     col = "royalblue")
+
+```
 

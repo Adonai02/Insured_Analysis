@@ -85,6 +85,7 @@ Now, We are going to see the relation between the dependend variable
 We see that there are many payments between the interval &lt;1,000
 Kilometres corresponding to the First Category but there are even more
 in the second category 1,000 - 15,000.
+
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
@@ -104,3 +105,19 @@ In the last one histogram *Sum of Paymants* vs *Zone*, we can recognize
 easily that in the Zone number 4 (Escobedo) there are many payments, so,
 these is important if the committee want to make decisions about it that
 benefit them.
+
+-   We have to find the correlation for each variable to know wich
+    variable have better relation with the variable *Payments*.
+
+<!-- -->
+
+    #> corrplot 0.84 loaded
+
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+We can observe the variable with more relation with *Payments* are
+*Insured* and *Claims* with that in mind We will make a scatterplots.
+
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
