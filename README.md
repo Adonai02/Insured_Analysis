@@ -121,5 +121,3 @@ We can observe the variable with more relation with *Payments* are
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
-
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->

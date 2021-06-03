@@ -181,8 +181,7 @@ plot(data$Insured, data$Payment, xlab = "Insured", ylab = "Payments", main = "Sc
 
 ```{r echo=FALSE}
 
-plot(data$Insured, data$Payment, xlab = "Insured", ylab = "Payments", main = "Scatter of Payment vs Insured",
-     col = "royalblue")
+
 
 ```
 
