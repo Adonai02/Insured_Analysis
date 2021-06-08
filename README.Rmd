@@ -179,9 +179,47 @@ plot(data$Insured, data$Payment, xlab = "Insured", ylab = "Payments", main = "Sc
 ```
 
 
-```{r echo=FALSE}
+
+* As the committee want to find the variables that impact on *Payment* increase or decrease, is necessary 
+make a linear regression.
 
 
+```{r}
+linear_model <- lm(formula = Payment~., data = data)
+```
+
+
+We going to do a summary of the linear model
+
+```{r}
+summary(linear_model)
 
 ```
+
+
+We observe the variables *Claims* and *Insured* as we expected, have very much relation with *Payment* according 
+to P-values, at the same, *Kilometres* and the *Zone* have very much relation but less than *Claims* and *Insured*, knowing that, we can plot the linear model together with the respective variable.
+
+```{r echo=FALSE}
+
+library(ggplot2)
+KvsPay <- ggplot(data, aes(Kilometres, Payment)) +
+  geom_point() +
+  stat_smooth(method = lm)
+KvsPay
+ZonevsPay <- ggplot(data, aes(Zone, Payment)) +
+  geom_point() +
+  stat_smooth(method = lm)
+ZonevsPay
+InsvsPay<-KvsPay <- ggplot(data, aes(Insured, Payment)) +
+  geom_point() +
+  stat_smooth(method = lm)
+InsvsPay
+ClaimsvsPay <- ggplot(data, aes(Claims, Payment)) +
+  geom_point() +
+  stat_smooth(method = lm)
+ClaimsvsPay
+
+```
+
 
